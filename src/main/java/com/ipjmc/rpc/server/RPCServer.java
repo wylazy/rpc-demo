@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ipjmc.rpc.client.RPC;
+import com.ipjmc.rpc.protocal.Invocation;
 
 public class RPCServer implements Server {
 	private int port = RPC.PORT;
@@ -41,7 +42,7 @@ public class RPCServer implements Server {
 		Object obj = serviceEngine.get(invo.getInterfaces().getName());
 		if(obj!=null) {
 			try {
-				Method m = obj.getClass().getMethod(invo.getMethod().getName(), invo.getMethod().getParameterTypes());
+				Method m = obj.getClass().getMethod(invo.getMethod().getMethodName(), invo.getMethod().getParams());
 				Object result = m.invoke(obj, invo.getParams());
 				invo.setResult(result);
 			} catch (Throwable th) {

@@ -1,5 +1,7 @@
 package com.ipjmc.rpc.server;
 
+import com.ipjmc.rpc.protocal.Invocation;
+
 public interface Server {
 
 	public void stop();  

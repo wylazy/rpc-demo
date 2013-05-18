@@ -1,7 +1,6 @@
-package com.ipjmc.rpc.server;
+package com.ipjmc.rpc.protocal;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class Invocation implements Serializable{
@@ -9,7 +8,7 @@ public class Invocation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Class interfaces;
-	private Method method;
+	private RPCMethod method;
 	private Object[] params;
 	private Object result;
 	
@@ -41,13 +40,13 @@ public class Invocation implements Serializable{
 	/**
 	 * @return the method
 	 */
-	public Method getMethod() {
+	public RPCMethod getMethod() {
 		return method;
 	}
 	/**
 	 * @param method the method to set
 	 */
-	public void setMethod(Method method) {
+	public void setMethod(RPCMethod method) {
 		this.method = method;
 	}
 	/**
@@ -64,7 +63,7 @@ public class Invocation implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return interfaces.getName()+"."+method.getName()+"("+Arrays.toString(params)+")";
+		return interfaces.getName()+"."+method.getMethodName()+"("+Arrays.toString(params)+")";
 	}
 	
 }
