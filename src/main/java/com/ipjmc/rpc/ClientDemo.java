@@ -11,6 +11,6 @@ public class ClientDemo {
        // System.out.println(echo.echo("hello,hello"));  
 		
 		Calculator cal = RPC.getProxy(Calculator.class, "127.0.0.1", RPC.PORT);
-		System.out.println(cal.add(2, 5));
+		System.out.println("RPC Call: add(2, 5) = " + cal.add(2, 5));
     }  
 }

@@ -9,6 +9,10 @@ public class RPCMethod implements Serializable{
 	private String methodName;
 	private Class[] params;
 	
+	public RPCMethod() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public RPCMethod(String name, Class<?>[] parameterTypes) {
 		this.methodName = name;
 		this.params = parameterTypes;

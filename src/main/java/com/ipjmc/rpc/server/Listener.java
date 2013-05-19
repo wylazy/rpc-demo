@@ -1,11 +1,15 @@
 package com.ipjmc.rpc.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.alibaba.fastjson.JSON;
 import com.ipjmc.rpc.protocal.Invocation;
 
 public class Listener extends Thread {
@@ -30,14 +34,18 @@ public class Listener extends Thread {
 			try {
 				
 				Socket client = socket.accept();
-				ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
-				Invocation invo = (Invocation) ois.readObject();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+				Invocation invo = JSON.parseObject(reader.readLine(), Invocation.class);
+				
 				server.call(invo);
-				ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
-				oos.writeObject(invo);
-				oos.flush();
-				oos.close();
-				ois.close();
+				
+				PrintWriter printer = new PrintWriter(client.getOutputStream());
+				printer.write(JSON.toJSONString(invo));
+				
+				printer.flush();
+				printer.close();
+				reader.close();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
